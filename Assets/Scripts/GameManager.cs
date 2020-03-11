@@ -4,5 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Transform player;
+    private int points;
+
+    //Função pública para adicionar um valor inteiro a variável "points"
+    public void AddPoints(int points)
+    {
+        this.points += points;
+
+        Debug.Log("Pontos: " + this.points);
+    }
 }
