@@ -6,8 +6,6 @@ public class SphereScript : MonoBehaviour
 {
     public GameManager gameManager;     //Referência para o GameManager
 
-    bool isDropped = true;              //Variável que controla o "estado" da esfera
-
     public bool IsDropped               //Propriedade da variável "isDropped"
     {
         get
@@ -19,6 +17,27 @@ public class SphereScript : MonoBehaviour
             isDropped = value;
         }
     }
+
+    public bool IsPlataformed
+    {
+        get { return isPlataformed; }
+    }
+
+    public PlayerPickUp Player
+    {
+        get { return player; }
+        set
+        {
+            player = value;
+
+            Debug.Log("Nome do objeto que coletou: " + player.gameObject.name);
+        }
+    }
+
+    bool isDropped = true;              //Variável que controla o "estado" da esfera
+    bool isPlataformed = false;         //Variável que controla se a esfera foi colocada na Plataforma ou não
+        
+    PlayerPickUp player;                //Referência ao jogador que coletou essa esfera 
 
     private void Awake()
     {
@@ -40,9 +59,14 @@ public class SphereScript : MonoBehaviour
             //Se o valor da variável for true...
             if (isDropped == true)
             {
-                //Contar os pontos e impedir que ele pegue a esfera de novo
-
+                //Chamar a função "AddPoints" no game manager e adicionar 1 ponto
                 gameManager.AddPoints(1);
+                //Acessar o componente "PlayerController" que está no mesmo GameObject que o jogador
+                var playerController = player.gameObject.GetComponent<PlayerController>();
+                //Chama a função "AddSphere" para adicionar esta esfera na lista que está em "PlayerController"
+                playerController.AddSphere(this);
+                //Marcar "isPlataformed" como true
+                isPlataformed = true;
 
                 Debug.Log("Soltou a esfera");
             }

@@ -33,21 +33,29 @@ public class PlayerPickUp : MonoBehaviour
         if (pickup == null)
             return;
 
-        //Transformar o objeto armazenado na referência em filho deste Transform(Jogador)
-        pickup.parent = transform;
-        //Cria um vetor para definir a nova posição da esfera
-        Vector3 novaPosicao = new Vector3(0, .5f, 0);
-        //Mudar a posição do objeto em relação ao pai
-        pickup.localPosition = novaPosicao;        
-        //Altera o valor de "isCarrying" para true, variável que controla a ação de input
-        isCarrying = true;
         //Cria uma referência para a classe SphereScript e tenta acessá-la através do GameObject "pickup"
-        SphereScript sphereScript = pickup.GetComponent<SphereScript>();
+        SphereScript sphereScript = pickup.GetComponent<SphereScript>();    
         //Se a referência não tem valor nulo...
         if(sphereScript != null)
         {
+            //Se a esfera ainda não foi plataformed
+            if (sphereScript.IsPlataformed)  //sphereScript.IsPlataformed == true
+            {
+                Debug.Log("Essa esfera já foi plataformed");
+                return;
+            }
+            //Transformar o objeto armazenado na referência em filho deste Transform(Jogador)
+            pickup.parent = transform;
+            //Cria um vetor para definir a nova posição da esfera
+            Vector3 novaPosicao = new Vector3(0, .5f, 0);
+            //Mudar a posição do objeto em relação ao pai
+            pickup.localPosition = novaPosicao;
+            //Altera o valor de "isCarrying" para true, variável que controla a ação de input
+            isCarrying = true;
             //Altera o valor da propriedade "IsDropped" para falso
             sphereScript.IsDropped = false;
+            //Definir a variável "Player" do "sphereScript" como este objeto
+            sphereScript.Player = this;
         }
     }
 
