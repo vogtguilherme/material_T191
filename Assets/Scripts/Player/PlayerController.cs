@@ -10,8 +10,7 @@ public class PlayerController : MonoBehaviour
     public void AddSphere(SphereScript sphere)
     {
         //Adiciona o item que está sendo usado como parâmetro da função
-        playerSpheres.Add(sphere);
-        
+        playerSpheres.Add(sphere);        
         //Ativar comportamentos da esfera
     }
 }
