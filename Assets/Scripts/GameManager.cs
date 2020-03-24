@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
     {
         //Altera a posição do jogador para a posição do Transform de referência
         player.transform.position = startPosition.position;
+
+		if (sphereHolder.childCount <= 0)
+			return;
+
         //Executa um loop que realiza um número de repetições conforme o tamanho do vetor "spheres"
         for (int i = 0; i < spheres.Length; i++)
         {
